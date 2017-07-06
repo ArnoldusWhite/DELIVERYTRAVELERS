@@ -1,0 +1,43 @@
+language: php
+
+php:
+  - 7.0.4
+
+# Allows use container-based infrastructure
+sudo: false
+
+# Start mysql service
+services:
+  - mysql
+
+# Cache composer packages so "composer install" is faster
+cache:
+  directories:
+    - $HOME/.composer/cache/files
+
+# Define an environment variable
+env:
+  - SYMFONY_VERSION="3.0.*" DB=mysql
+
+# Update composer
+before-install:
+  - composer self-update
+
+# Install composer dependencies,
+# Create database, schema and fixtures
+install:
+  - composer install
+  - cp app/config/parameters.yml.dist app/config/parameters.yml
+  - php bin/console doctrine:database:create --env=test
+  - php bin/console doctrine:schema:create --env=test
+  - php bin/console doctrine:fixtures:load -n --env=test
+
+# Run script
+script:
+  - phpunit -d zend.enable_gc=0 --coverage-clover build/logs/clover.xml -v
+  - php vendor/bin/coveralls -c .coveralls.yml -v
+  - sh -c "vendor/bin/phpcs -p --config-set show_warnings 0"
+
+# After a build, send email notification with the build results
+#notifications:
+#  email: ajimenez.bf@gmail.com
