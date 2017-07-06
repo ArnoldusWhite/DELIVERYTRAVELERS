@@ -50,6 +50,7 @@ Pour ce projet, nous utiliserons:
 
   1. Initialiser le projet en local [Astuce](https://help.github.com/articles/fork-a-repo/)
   2. Creer une base de donnée depuis votre PHPMyAdmin nommée `deliverytravelersDB` sous `utf8_general_ci`.
-  3. Installer les dépendances dont vous avez `composer install`
+  3. Installer les dépendances coté serveur dont vous avez `composer install`
+  4. Install les dépendances coté client `bower update`
 
 A Symfony project created on July 6, 2017, 2:36 pm.

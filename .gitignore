@@ -29,6 +29,7 @@
 
 # dependencies
 /vendor/
+/bower_components/
 
 # Managed by Composer
 /app/bootstrap.php.cache
